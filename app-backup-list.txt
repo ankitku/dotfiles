@@ -75,11 +75,16 @@ ca-certificates					install
 ca-certificates-java				install
 cabextract					install
 caribou						install
+cdemu-client					install
+cdemu-daemon					install
 cifs-utils					install
 cinnamon					install
 cinnamon-themes					install
 clang						install
 cli-common					install
+cmake						install
+cmake-curses-gui				install
+cmake-data					install
 cmap-adobe-japan2				install
 cmus						install
 cmus-plugin-ffmpeg				install
@@ -123,6 +128,7 @@ debianutils					install
 default-jdk					install
 default-jre					install
 default-jre-headless				install
+defoma						install
 desktop-file-utils				install
 dictionaries-common				install
 diffutils					install
@@ -155,6 +161,7 @@ eclipse-rcp					install
 ed						install
 efibootmgr					install
 eject						install
+emacsen-common					install
 empathy-common					install
 enchant						install
 eog						install
@@ -180,6 +187,7 @@ flex						install
 folks-common					install
 fontconfig					install
 fontconfig-config				install
+fontforge					install
 fonts-droid					install
 fonts-horai-umefont				install
 fonts-kacst					install
@@ -217,12 +225,14 @@ fuse						install
 g++						install
 g++-4.6						install
 g2ipmsg						install
+gaupol						install
 gawk						install
 gcalctool					install
 gcc						install
 gcc-4.6						install
 gcc-4.6-base					install
 gcc-4.6-base:i386				install
+gcdemu						install
 gcj-4.6-base					install
 gcj-4.6-jre-lib					install
 gconf-service					install
@@ -467,6 +477,7 @@ iso-codes					install
 iw						install
 jarwrapper					install
 java-common					install
+javascript-common				install
 jockey-common					install
 jockey-gtk					install
 junit						install
@@ -612,6 +623,7 @@ libbsd0						install
 libburn4					install
 libbz2-1.0					install
 libbz2-1.0:i386					install
+libc-ares2					install
 libc-bin					install
 libc-dev-bin					install
 libc6						install
@@ -713,6 +725,8 @@ libdb5.1					install
 libdb5.1:i386					install
 libdb5.1-java					install
 libdb5.1-java-gcj				install
+libdbd-mysql-perl				install
+libdbi-perl					install
 libdbus-1-3					install
 libdbus-1-3:i386				install
 libdbus-1-dev					install
@@ -783,6 +797,7 @@ libesd0						install
 libesd0:i386					install
 libesd0-dev					install
 libespeak1					install
+libev4						install
 libevent-2.0-5					install
 libevince3-3					install
 libexempi3					install
@@ -800,6 +815,7 @@ libfarstream-0.1-0				install
 libffi-dev					install
 libffi6						install
 libffi6:i386					install
+libffmpegthumbnailer4				install
 libfftw3-3					install
 libfile-basedir-perl				install
 libfile-copy-recursive-perl			install
@@ -818,6 +834,7 @@ libfontconfig1					install
 libfontconfig1:i386				install
 libfontconfig1-dev				install
 libfontenc1					install
+libfontforge1					install
 libframe6					install
 libfreerdp-plugins-standard			install
 libfreerdp1					install
@@ -857,6 +874,7 @@ libgdiplus					install
 libgdk-pixbuf2.0-0				install
 libgdk-pixbuf2.0-0:i386				install
 libgdk-pixbuf2.0-common				install
+libgdraw4					install
 libgdu-gtk0					install
 libgdu0						install
 libgee2						install
@@ -1104,6 +1122,7 @@ libjpeg-turbo8:i386				install
 libjpeg8					install
 libjpeg8:i386					install
 libjs-jquery					install
+libjs-prototype					install
 libjsch-java					install
 libjson-glib-1.0-0				install
 libjson0					install
@@ -1198,6 +1217,7 @@ libmikmod2					install
 libmikmod2:i386					install
 libmimic0					install
 libminiupnpc8					install
+libmirage6					install
 libmission-control-plugins0			install
 libmjpegtools-1.9				install
 libmms0						install
@@ -1253,6 +1273,8 @@ libmtp-runtime					install
 libmtp9						install
 libmuffin0					install
 libmusicbrainz3-6				install
+libmysqlclient-dev				install
+libmysqlclient18				install
 libmysqlclient18:i386				install
 libmythes-1.2-0					install
 libnautilus-extension1a				install
@@ -1269,6 +1291,7 @@ libnepomukdatamanagement4			install
 libnepomukquery4a				install
 libnepomuksync4					install
 libnepomukutils4				install
+libnet-daemon-perl				install
 libnet-http-perl				install
 libnet-ssleay-perl				install
 libnetfilter-conntrack3				install
@@ -1354,8 +1377,10 @@ libphysfs1					install
 libpipeline1					install
 libpixman-1-0					install
 libpixman-1-0:i386				install
+libpkcs11-helper1				install
 libplasma3					install
 libplist1					install
+libplrpc-perl					install
 libplymouth2					install
 libpng12-0					install
 libpng12-0:i386					install
@@ -1438,6 +1463,7 @@ libraw1394-11					install
 libraw1394-11:i386				install
 libraw5						install
 librdf0						install
+libreadline5					install
 libreadline6					install
 libreadline6-dev				install
 librecode0					install
@@ -1471,6 +1497,7 @@ librsvg2-common:i386				install
 librsync1					install
 librtmp0					install
 librtmp0:i386					install
+libruby1.8					install
 libruby1.9.1					install
 libsamba-credentials0				install
 libsamba-hostconfig0				install
@@ -1547,6 +1574,7 @@ libspeex1					install
 libspeex1:i386					install
 libspeexdsp1					install
 libspeexdsp1:i386				install
+libspiro0					install
 libsqlite3-0					install
 libsqlite3-0:i386				install
 libsqlite3-dev					install
@@ -1554,6 +1582,7 @@ libss2						install
 libssh-4					install
 libssl-dev					install
 libssl-doc					install
+libssl0.9.8					install
 libssl0.9.8:i386				install
 libssl1.0.0					install
 libssl1.0.0:i386				install
@@ -1615,6 +1644,7 @@ libts-0.0-0					install
 libtwolame0					install
 libudev0					install
 libudev0:i386					install
+libuninameslist0				install
 libunique-3.0-0					install
 libunistring0					install
 libunistring0:i386				install
@@ -1640,6 +1670,7 @@ libv4l-0					install
 libv4l-0:i386					install
 libv4lconvert0					install
 libv4lconvert0:i386				install
+libv8-3.7.12.22					install
 libva-x11-1					install
 libva1						install
 libvcdinfo0					install
@@ -1759,6 +1790,7 @@ libxml2						install
 libxml2:i386					install
 libxml2-dev					install
 libxml2-utils					install
+libxmlrpc-core-c3				install
 libxmu6						install
 libxmu6:i386					install
 libxmuu1					install
@@ -1839,6 +1871,9 @@ marble-plugins					install
 mawk						install
 mdm						install
 media-player-info				install
+mediatomb					install
+mediatomb-common				install
+mediatomb-daemon				install
 medibuntu-keyring				install
 meld						install
 memtest86+					install
@@ -1880,6 +1915,7 @@ mlocate						install
 mobile-broadband-provider-info			install
 modemmanager					install
 module-init-tools				install
+mongodb-10gen					install
 mono-4.0-gac					install
 mono-gac					install
 mono-runtime					install
@@ -1892,8 +1928,11 @@ mtools						install
 mtr-tiny					install
 muffin-common					install
 multiarch-support				install
+mysql-client					install
+mysql-client-5.5				install
 mysql-client-core-5.5				install
 mysql-common					install
+mysql-server-core-5.5				install
 nano						install
 nautilus					install
 nautilus-data					install
@@ -1916,9 +1955,12 @@ netcat-traditional				install
 netpbm						install
 network-manager					install
 network-manager-gnome				install
+network-manager-openvpn				install
+network-manager-openvpn-gnome			install
 network-manager-pptp				install
 network-manager-pptp-gnome			install
 nmap						install
+nodejs						install
 notify-osd					install
 notify-osd-icons				install
 ntfs-3g						install
@@ -1939,11 +1981,13 @@ openprinting-ppds				install
 openssh-client					install
 openssh-server					install
 openssl						install
+openvpn						install
 opera						install
 os-prober					install
 oss-compat					install
 oxygen-icon-theme				install
 p7zip						install
+p7zip-full					install
 parted						install
 passwd						install
 patch						install
@@ -2002,6 +2046,7 @@ pulseaudio-module-gconf				install
 pulseaudio-module-x11				install
 pulseaudio-utils				install
 python						install
+python-aeidon					install
 python-appindicator				install
 python-apt					install
 python-apt-common				install
@@ -2028,6 +2073,7 @@ python-dirspec					install
 python-dnspython				install
 python-egenix-mxdatetime			install
 python-egenix-mxtools				install
+python-enchant					install
 python-feedparser				install
 python-gconf					install
 python-gdbm					install
@@ -2047,6 +2093,7 @@ python-gpgme					install
 python-gst0.10					install
 python-gtk2					install
 python-gtksourceview2				install
+python-gtkspell					install
 python-httplib2					install
 python-imaging					install
 python-keyring					install
@@ -2118,7 +2165,10 @@ rfkill						install
 rsync						install
 rsyslog						install
 rtkit						install
+ruby1.8						install
+ruby1.8-dev					install
 ruby1.9.1					install
+rubygems					install
 samba						deinstall
 samba-common					install
 samba-common-bin				install
@@ -2169,6 +2219,7 @@ system-config-printer-common			install
 system-config-printer-gnome			install
 system-config-printer-udev			install
 sysv-rc						install
+sysvbanner					install
 sysvinit-utils					install
 tar						install
 tcl						install
@@ -2192,6 +2243,7 @@ totem-plugins					install
 totem-plugins-extra				install
 transmission-common				install
 transmission-gtk				install
+tree						install
 tsconf						install
 ttf-dejavu					install
 ttf-dejavu-core					install
@@ -2238,6 +2290,7 @@ user-setup					install
 util-linux					install
 uuid-runtime					install
 vbetool						install
+vhba-dkms					install
 vim						install
 vim-common					install
 vim-runtime					install
@@ -2276,7 +2329,9 @@ wireless-regdb					install
 wireless-tools					install
 wodim						install
 wpasupplicant					install
+wwwconfig-common				install
 wx2.6-headers					install
+x-ttcidfont-conf				install
 x11-apps					install
 x11-common					install
 x11-session-utils				install
@@ -2361,4 +2416,5 @@ zip						install
 zlib1g						install
 zlib1g:i386					install
 zlib1g-dev					install
+zsh						install
 zsnes:i386					deinstall
