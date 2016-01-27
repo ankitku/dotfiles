@@ -3,10 +3,13 @@ set showcmd
 " 256 colors supported
 let &t_Co=256
 
-colorscheme molokai 
+colorscheme papercolor 
+set mouse=a
 
 " Who doesn't like autoindent?
 set autoindent
+filetype indent on
+set cinkeys=0{,0},:,0#,!^F
 set number
 
 "autocomplete
@@ -20,6 +23,8 @@ set smarttab
 set shiftwidth=3
 set softtabstop=3
 
+set pheader=%<%f%h%m\ %40{strftime(\"%c\",getftime(expand(\"%%\")))}%=Page\ %N
+
 " Open Url on this line with the browser \w"
 map <Leader>w :call Browser ()<CR>
 
@@ -30,8 +35,17 @@ let g:airline_powerline_fonts = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_theme='papercolor'
 set laststatus=2
 
+syntax on
+filetype plugin on
+
+au BufEnter *.hs compiler ghc
+
+let g:haddock_browser = "/usr/bin/google-chrome"
+let g:ghc = "/opt/ghc"
+let g:haddock_docdir = "/opt/ghc/share/doc/ghc/html/"
 " Syntastic options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_hs_checkers=['hdevtools','hlint']
@@ -78,13 +92,25 @@ nnoremap <silent> <C-j> :call GetNextSyntasticError(1)<CR>
 nnoremap <silent> <C-k> :call GetNextSyntasticError(0)<CR>
 nnoremap <silent> \ :call ToggleSyntasticErrorList()<return>
 
+let g:syntastic_auto_loc_list=1
+
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+
+" "Reload
+map <silent> tu :call GHC_BrowseAll()<CR>
+" " Type Lookup
+map <silent> tw :call GHC_ShowType(1)<CR>
 
 "neco-ghc settings
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:necoghc_enable_detailed_browse = 1
 
+let g:haskell_indent_if = 2 
+
+map <C-n> :NERDTreeToggle<CR>
+map <Tab> :bnext<CR>
+map <S-Tab> :bprevious<CR>
 
 
-"autocmd vimenter * NERDTree
+
