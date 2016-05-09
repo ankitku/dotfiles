@@ -1,28 +1,30 @@
+(setenv "PATH" (concat "/usr/local/bin/:"(getenv "PATH")))
 
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
+(setenv "PATH" (concat "/Library/TeX/texbin/:" (getenv "PATH")))
 
-;; Make use of refTeX in org-mode
-(defun org-mode-reftex-setup ()
-(load-library "reftex")
-(and (buffer-file-name)
-(file-exists-p (buffer-file-name))
-(reftex-parse-all))
-(define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-)
-(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
-;; Set LaTeXmk the default LaTeX compiler
-;;(setq org-latex-to-pdf-process (list "latexmk -f -pdf %s"))
+(put 'downcase-region 'disabled nil)
 
-;;(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LaTeXmk")))
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
 
-;; Enable LaTeX-math-mode by default
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
+(setq exec-path (append  exec-path '("/Users/ankitku/.cabal/bin")))
+(setq exec-path (append  exec-path '("/Users/ankitku/Applications/ghc-7.10.1.app/Contents/bin")))
+
+
+(setenv "PATH" (concat "/Users/ankitku/.cabal/bin/:"(getenv "PATH")))
+(setenv "PATH" (concat "/Users/ankitku/Applications/ghc-7.10.1.app/Contents/bin/:" (getenv "PATH")))
+(setenv "PATH" (concat "/Users/ankitku/.cabal/share/x86_64-osx-ghc-7.10.1/Agda-2.5.1/emacs-mode" (getenv "PATH")))
+
+(setenv "PATH" (concat "/Library/TeX/texbin/:" (getenv "PATH")))
 
 (load-file (let ((coding-system-for-read 'utf-8))
-             (shell-command-to-string "agda-mode locate")))
+	     (shell-command-to-string "agda-mode locate")))
+
+;; Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.emacs.d/zombie-trellys-mode/")
+
+;; load the packaged named xyz.
+(load "zombie-trellys-mode") ;; best not to include the ending “.el” or “.elc”

@@ -16,5 +16,5 @@ if [ -d "$GHC_DOT_APP" ]; then
   export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
 fi
 
-alias ghc-llvm="ghc -pgmlo opt -pgmlc llc -fllvm"
+alias weather='curl -4 wttr.in/Kanpur'
 exec /bin/zsh

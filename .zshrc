@@ -53,7 +53,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/Users/ankitku/.cabal/bin:/Users/ankitku/Applications/ghc-7.10.1.app/Contents/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/.cabal/bin/:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:PATH"
+export PATH="/usr/local/:/Users/ankitku/.cabal/bin:/Users/ankitku/Applications/ghc-7.10.1.app/Contents/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/.cabal/bin/:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,3 +84,5 @@ source $ZSH/oh-my-zsh.sh
 #
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+alias weather='curl -4 wttr.in/Kanpur'
+
