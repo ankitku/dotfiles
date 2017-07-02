@@ -5,7 +5,7 @@ export ZSH=/Users/ankitku/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="muse"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,11 +49,13 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git history history-substring-search terminalapp brew)
 
 # User configuration
 
-export PATH="/usr/local/:/Users/ankitku/.cabal/bin:/Users/ankitku/Applications/ghc-7.10.1.app/Contents/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/.cabal/bin/:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:PATH"
+export AGDA_DIR="/Users/ankitku/.agda"
+export AGDA_STDLIB="/Users/ankitku/dev/agda-stdlib"
+export PATH="/Users/ankitku/.local/bin:/usr/local/:/Users/ankitku/.cabal/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/.cabal/bin/:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:AGDA_DIR:AGDA_STDLIB:PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -72,7 +74,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -85,4 +87,7 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias weather='curl -4 wttr.in/Kanpur'
+alias ls='ls -GFh'
 
+# OPAM configuration
+. /Users/ankitku/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
