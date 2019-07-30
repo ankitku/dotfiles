@@ -18,3 +18,6 @@ fi
 
 alias weather='curl -4 wttr.in/Kanpur'
 exec /bin/zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

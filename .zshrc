@@ -5,7 +5,7 @@ export ZSH=/Users/ankitku/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="lambda-mod"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,10 +52,11 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(git history history-substring-search terminalapp brew)
 
 # User configuration
-
-export AGDA_DIR="/Users/ankitku/.agda"
-export AGDA_STDLIB="/Users/ankitku/dev/agda-stdlib"
-export PATH="/Users/ankitku/.local/bin:/usr/local/:/Users/ankitku/.cabal/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/.cabal/bin/:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:AGDA_DIR:AGDA_STDLIB:PATH"
+export ACL2S_EXE="acl2s"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_152.jdk/Contents/Home"
+export SSRCOQ_LIB="/Users/ankitku/Downloads/math-comp-mathcomp-1.6.1/mathcomp/ssreflect"
+export ACL2="/Users/ankitku/Downloads/acl2"  
+export PATH="/Users/ankitku/bin:/Users/ankitku/Library/Python/2.7/bin":$SSRCOQ_LIB:"/Library/Java/JavaVirtualMachines/jdk1.8.0_152.jdk/Contents/Home/bin:/Users/ankitku/.local/bin:/usr/local/:/Users/ankitku/.cabal/bin:/Users/ankitku/.emacs:/usr/local/opt/llvm/bin:/Users/ankitku/Library/Android/sdk/platform-tools/:/Users/ankitku/Library/Android/sdk/tools/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:/opt/local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,10 +85,33 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # Example aliases
 #
 #
+
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias weather='curl -4 wttr.in/Kanpur'
+alias weather='curl -4 wttr.in/Boston'
 alias ls='ls -GFh'
+alias acl2s=~/bin/acl2s
+
+echo "╔┓┏╦━━╦┓╔┓╔━━╗
+║┗┛║┗━╣┃║┃║XX║
+║┏┓║┏━╣┗╣┗╣╰╯║
+╚┛┗╩━━╩━╩━╩━━╝"
+export PATH=/usr/local/opt/sqlite/bin/:/Users/ankitku/bin/:$PATH
+
+
+export MYZ3="/Users/ankitku/Downloads/z3-4.8.4.d6df51951f4c-x64-osx-10.14.1"
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:"/Users/ankitku/Downloads/z3-4.8.4.d6df51951f4c-x64-osx-10.14.1/bin/":"/Users/ankitku/bin"
+export PYTHONPATH=$PYTHONPATH:$MYZ3/bin/python
+export Z3_LIBRARY_PATH=$DYLD_LIBRARY_PATH
+
+export DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:/Users/ankitku/Downloads/scipoptsuite-3.1.0/lib/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/Users/ankitku/Downloads/scipoptsuite-3.1.0/lib/":$MYZ3/lib
+export C_INCLUDE_PATH=`ocamlc -where`:$C_INCLUDE_PATH
+
+export ANTLR_RUNTIME_PATH="/Users/ankitku/Downloads/antlr4-cpp-runtime-4.7.2-macos/antlr4-runtime/"
+
+
 
 # OPAM configuration
-. /Users/ankitku/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+./Users/ankitku/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
