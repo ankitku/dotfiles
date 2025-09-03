@@ -23,8 +23,19 @@
 (scroll-bar-mode -1)
 (fringe-mode 0)
 
-(add-to-list 'load-path "~/.emacs.d/packages")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages"))
 (require 'package)
+
+;; Add melpa package source when using package list
+;; Package.el stuff
+(setq package-archives
+      '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+
+(package-initialize)
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/themes"))
 
 ;;magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -32,17 +43,21 @@
 ;;windmove
 (windmove-default-keybindings)
 
+
+(setq package-check-signature nil)
+
+
 ;;acl2s keybindings
 (load "~/dev/.emacs-acl2.el")
-(load "~/dev/send-form.lisp")
+;(load "~/dev/send-form.lisp")
+
+(load "~/dev/scripts/.lisp.el")
 (put 'match 'lisp-indent-function 'defun)
 
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (add-to-list 'package-archives
-               (cons "melpa" (concat proto "://melpa.org/packages/")) t))
-(package-initialize)
+;; (setq telephone-line-subseparator-faces '())
+;; (setq telephone-line-height 20
+;;       telephone-line-evil-use-short-tag t)
+;; (telephone-line-mode t)
 
 ;;user agent to connect to melpa
 (require 'url-http)
@@ -51,23 +66,6 @@
 ")
 (setq url-mime-charset-string "en-US,en;q=0.8")
 (setq url-mime-encoding-string "gzip, deflate, sdch")
-
-;; Add melpa package source when using package list
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-    ("marmalade" . "https://marmalade-repo.org/packages/")
-    ("melpa" . "http://melpa.org/packages/")))
-
-(require 'gnutls)
-(add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
-
-
-;; Add melpa package source when using package list
-;; Package.el stuff
-(setq package-archives '(("elpa" . "http://tromey.com/elpa/")
-			 ("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.org/packages/")
-			 ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 
 (require 'gnutls)
@@ -78,11 +76,56 @@
 ;; This must come before configurations of installed packages.
 ;; Don't delete this line.
 (package-initialize)
-
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/packages/")
+
+;;Font
+(set-face-attribute 'default nil :font "Space Mono" :height 120 :weight 'normal)
+
+(when (window-system)
+  (set-frame-font "Fira Code-12" nil t)
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:&&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*\\)\\|[*>]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 ;; (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:/\\*\\|//\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:<<\\|[<=]\\)\\|[<=]\\)")
+                 (61 . ".\\(?:\\(?:==\\|[=>]\\)\\|[=>]\\)")
+                 (62 . ".\\(?:\\(?:>>\\|[=>]\\)\\|[=>]\\)")
+                 (63 . ".\\(?:\\(?:\\?\\?\\)\\|[:?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|[\\]})\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|\\|[|=]\\)\\|[|]\\)")
+                 (126 . ".\\(?:~>\\|~\\)")
+                 )
+               ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            (nconc (char-table-range composition-function-table (car char-regexp))
+                                   (list (vector (cdr char-regexp) 0 'compose-gstring-for-graphic)))))))
+
+
+;; Enable anti-aliasing on macOS
+(when (eq system-type 'darwin)
+  (setq mac-allow-anti-aliasing t))
+
+;; (use-package default-text-scale
+;;   :ensure t
+;;   :config
+;;   (default-text-scale-mode))
 
 ;;Dockerfile mode
 (require 'dockerfile-mode)
@@ -104,16 +147,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (leuven)))
+ '(coq-prog-name "/opt/homebrew/bin/coqtop")
+ '(custom-enabled-themes '(autumn-light))
  '(custom-safe-themes
-   (quote
-    ("0b2e94037dbb1ff45cc3cd89a07901eeed93849524b574fa8daa79901b2bfdcf" default))))
+   '("7189211b12d8bcba23677bb5bf45b7585cf00cf97db246ed83e14a90ef88405c"
+     "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6"
+     "377bf88f6a5c5085bccdd96beeade170a55df7944e9768f1108ada15d4e71e02"
+     "0b2e94037dbb1ff45cc3cd89a07901eeed93849524b574fa8daa79901b2bfdcf"
+     default))
+ '(package-selected-packages
+   '(alect-themes auctex-latexmk auto-complete-auctex autumn-light-theme
+		  company-math default-text-scale git-commit go-mode
+		  highlight-defined load-theme-buffer-local magit
+		  mode-line-bell modus-themes telephone-line
+		  use-package-hydra vterm xkcd))
+ '(proof-three-window-enable t))
 (setq tron-legacy-theme-vivid-cursor t)
 (setq-default cursor-type 'bar) 
 (setq tron-legacy-theme-softer-bg t)
 
 (custom-set-faces
- ;; xz
+ ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
@@ -156,6 +210,7 @@
 ;; TeX settings works only with Aquamacs
 (require 'latex-pretty-symbols)
 (add-hook 'TeX-mode-hook 'prettify-symbols-mode)
+(add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
 
 ;; Improve org mode looks
 (setq org-startup-indented t
@@ -248,19 +303,15 @@
                (delete-overlay ov)))
            (setq org-latex-fragment-last el))))))
 
-
 (add-hook 'post-command-hook 'org-latex-fragment-toggle)
 
-;;replace selected text by default
+;; Replace selected text by default
 (delete-selection-mode 1)
 
-;;always show line numbers
-(global-linum-mode)
-
-;;prevent creating lockfiles
+;; Prevent creating lockfiles
 (setq create-lockfiles nil)
 
-;; stop creating those #auto-save# files
+;; Stop creating those #auto-save# files
 (setq auto-save-default nil)
 
 (put 'shell-resync-dirs 'disabled nil)
@@ -272,8 +323,6 @@
 
 ;; Make sure we can find coqtop
 (setq exec-path (append exec-path '("/usr/local/bin")))
-
-(custom-set-variables '(coq-prog-name "/opt/homebrew/bin/coqtop") '(proof-three-window-enable t))
 
 (global-prettify-symbols-mode 1)
 
@@ -298,7 +347,7 @@
 ;; Prettify Coq output in proofs
 (add-hook 'coq-goals-mode-hook coq-symbols-list)
 
-(require 'tex-site)
+;;(require 'tex-site)
 (add-hook 'TeX-mode-hook
     (lambda ()
         (add-to-list 'TeX-output-view-style
@@ -308,3 +357,13 @@
 
 (put 'iconify-or-deiconify-frame 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+
+(require 'go-mode)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+
+;; reload this file
+(defun reload-emacs ()
+  (interactive)
+  (load "~/.emacs"))
+(global-set-key (kbd "C-c r") 'reload-emacs)
