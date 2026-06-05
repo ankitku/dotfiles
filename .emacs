@@ -1,7 +1,5 @@
 
-;(setq LaTeX-command-style '(("" "%(PDF)%(latex) -file-line-error %S%(PDFout)")))
 ;; ____________________________________________________________________________
-;; Aquamacs custom-file warning:
 ;; Warning: After loading this .emacs file, Aquamacs will also load
 ;; customizations from `custom-file' (customizations.el). Any settings there
 ;; will override those made here.
@@ -16,9 +14,8 @@
 (setq user-full-name "Ankit Kumar"
       user-mail-address "ankitkumar.itbhu@gmail.com")
 
-(setq completion-auto-help nil)
 
-;;(menu-bar-mode)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (fringe-mode 0)
@@ -35,6 +32,14 @@
 
 (package-initialize)
 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/themes"))
 
 ;;magit
@@ -44,14 +49,13 @@
 (windmove-default-keybindings)
 
 
-(setq package-check-signature nil)
+(setq package-check-signature 'allow-unsigned)
 
 
 ;;acl2s keybindings
-(load "~/dev/.emacs-acl2.el")
-;(load "~/dev/send-form.lisp")
+(load "~/dev/.emacs-acl2.el" t)
 
-(load "~/dev/scripts/.lisp.el")
+(load "~/dev/scripts/.lisp.el" t)
 (put 'match 'lisp-indent-function 'defun)
 
 ;; (setq telephone-line-subseparator-faces '())
@@ -59,86 +63,60 @@
 ;;       telephone-line-evil-use-short-tag t)
 ;; (telephone-line-mode t)
 
-;;user agent to connect to melpa
-(require 'url-http)
-(defun url-http-user-agent-string ()
-  "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36
-")
-(setq url-mime-charset-string "en-US,en;q=0.8")
-(setq url-mime-encoding-string "gzip, deflate, sdch")
 
 
 (require 'gnutls)
 (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; Load emacs packages and activate them
-;; This must come before configurations of installed packages.
-;; Don't delete this line.
-(package-initialize)
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/packages/")
 
 ;;Font
-(set-face-attribute 'default nil :font "Space Mono" :height 120 :weight 'normal)
+(set-face-attribute 'default nil :font "MesloLGS NF" :height 120 :weight 'normal)
 
 (when (window-system)
-  (set-frame-font "Fira Code-12" nil t)
-  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                 (36 . ".\\(?:>\\)")
-                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                 (38 . ".\\(?:&&\\)")
-                 (42 . ".\\(?:\\(?:\\*\\*\\)\\|[*>]\\)")
-                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                 ;; (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                 (47 . ".\\(?:\\(?:/\\*\\|//\\)\\|[*/=>]\\)")
-                 (48 . ".\\(?:x[a-zA-Z]\\)")
-                 (58 . ".\\(?:::\\|[:=]\\)")
-                 (59 . ".\\(?:;;\\|;\\)")
-                 (60 . ".\\(?:\\(?:<<\\|[<=]\\)\\|[<=]\\)")
-                 (61 . ".\\(?:\\(?:==\\|[=>]\\)\\|[=>]\\)")
-                 (62 . ".\\(?:\\(?:>>\\|[=>]\\)\\|[=>]\\)")
-                 (63 . ".\\(?:\\(?:\\?\\?\\)\\|[:?]\\)")
-                 (91 . ".\\(?:]\\)")
-                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|[\\]})\\)")
-                 (94 . ".\\(?:=\\)")
-                 (119 . ".\\(?:ww\\)")
-                 (123 . ".\\(?:-\\)")
-                 (124 . ".\\(?:\\(?:|\\|[|=]\\)\\|[|]\\)")
-                 (126 . ".\\(?:~>\\|~\\)")
-                 )
-               ))
-    (dolist (char-regexp alist)
-      (set-char-table-range composition-function-table (car char-regexp)
-                            (nconc (char-table-range composition-function-table (car char-regexp))
-                                   (list (vector (cdr char-regexp) 0 'compose-gstring-for-graphic)))))))
+  (set-frame-font "MesloLGS NF-12" nil t)
+
+;; Disable vterm shell integration
+(setq vterm-shell-integration nil)
+
+;; vterm font for Powerlevel10k
+(add-hook 'vterm-mode-hook
+          (lambda ()
+            (setq-local vterm-shell-integration nil)
+            (set (make-local-variable 'buffer-face-mode-face) 'fixed-pitch)
+            (buffer-face-mode t)
+            (face-remap-add-relative 'default :family "MesloLGS NF" :height 120)))
+  (use-package ligature
+    :config
+    (ligature-set-ligatures 'prog-mode
+                            '("==" "!=" ">=" "<=" "&&" "||" "++" "--"
+                              "->" "<-" "=>" "::" "<<" ">>" "//" "/*"
+                              "*/" "**" "??" ".." "..." "##" "###"))
+    (global-ligature-mode t)))
 
 
 ;; Enable anti-aliasing on macOS
 (when (eq system-type 'darwin)
   (setq mac-allow-anti-aliasing t))
 
-;; (use-package default-text-scale
-;;   :ensure t
-;;   :config
-;;   (default-text-scale-mode))
+(use-package default-text-scale
+  :ensure t
+  :config
+  (default-text-scale-mode))
 
 ;;Dockerfile mode
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+;(require 'dockerfile-mode)
+;(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq visible-bell t)
 (setq fill-column 70)
-(setq default-major-mode 'text-mode)
-(setq text-mode-hook
-      '(lambda () (auto-fill-mode 1)))
-(add-hook 'text-mode 'turn-on-auto-fill)
+(setq major-mode 'text-mode)
+(add-hook 'text-mode-hook (lambda () (auto-fill-mode 1)))
 (show-paren-mode 1)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -148,19 +126,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(coq-prog-name "/opt/homebrew/bin/coqtop")
- '(custom-enabled-themes '(autumn-light))
+ '(custom-enabled-themes '(wilmersdorf))
  '(custom-safe-themes
-   '("7189211b12d8bcba23677bb5bf45b7585cf00cf97db246ed83e14a90ef88405c"
+   '("8325ce8887001cf97589b3460ee88fd3344a290a815ec248945de6d223b7b01f"
+     "387734ba87238c7026eeec41e5678e81122e6463fa76b8c3f27a84ca4eeb71c2"
+     "7189211b12d8bcba23677bb5bf45b7585cf00cf97db246ed83e14a90ef88405c"
      "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6"
      "377bf88f6a5c5085bccdd96beeade170a55df7944e9768f1108ada15d4e71e02"
      "0b2e94037dbb1ff45cc3cd89a07901eeed93849524b574fa8daa79901b2bfdcf"
      default))
  '(package-selected-packages
-   '(alect-themes auctex-latexmk auto-complete-auctex autumn-light-theme
-		  company-math default-text-scale git-commit go-mode
-		  highlight-defined load-theme-buffer-local magit
-		  mode-line-bell modus-themes telephone-line
-		  use-package-hydra vterm xkcd))
+   '(default-text-scale ligature marginalia modus-themes orderless
+			vertico vterm xml-format))
  '(proof-three-window-enable t))
 (setq tron-legacy-theme-vivid-cursor t)
 (setq-default cursor-type 'bar) 
@@ -177,9 +154,6 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 160)
 
-;;enable annoying making-completion-list, which hangs emacs
-(setq completion-auto-help t)
-(setq lisp-mode t)
 
 ;;show recently opened files at startup
 (require 'recentf)
@@ -194,23 +168,31 @@
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 
-;;IDO mode
-(ido-mode 1)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
+;; Modern completion framework
+(use-package vertico
+  :init (vertico-mode))
+
+(use-package orderless
+  :demand t
+  :config
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :init (marginalia-mode))
 
 ;; org mode tweaks
-(require 'org-pretty-table)
-(add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+;(require 'org-pretty-table)
+;(add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;(require 'org-bullets)
+;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 
 ;; TeX settings works only with Aquamacs
-(require 'latex-pretty-symbols)
-(add-hook 'TeX-mode-hook 'prettify-symbols-mode)
-(add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
+;(require 'latex-pretty-symbols)
+;(add-hook 'TeX-mode-hook 'prettify-symbols-mode)
+;(add-hook 'TeX-mode-hook #'rainbow-delimiters-mode)
 
 ;; Improve org mode looks
 (setq org-startup-indented t
@@ -303,7 +285,10 @@
                (delete-overlay ov)))
            (setq org-latex-fragment-last el))))))
 
-(add-hook 'post-command-hook 'org-latex-fragment-toggle)
+(add-hook 'post-command-hook
+          (lambda ()
+            (when (eq major-mode 'org-mode)
+              (org-latex-fragment-toggle))))
 
 ;; Replace selected text by default
 (delete-selection-mode 1)
@@ -311,8 +296,9 @@
 ;; Prevent creating lockfiles
 (setq create-lockfiles nil)
 
-;; Stop creating those #auto-save# files
-(setq auto-save-default nil)
+;; Store backup and auto-save files in a central location
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
 
 (put 'shell-resync-dirs 'disabled nil)
 
@@ -341,7 +327,6 @@
               ("*" . ?×)))))
 
 ;; Prettify Coq script editor
-
 (add-hook 'coq-mode-hook coq-symbols-list)
 
 ;; Prettify Coq output in proofs
@@ -359,8 +344,8 @@
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
-(require 'go-mode)
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+;(require 'go-mode)
+;(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
 ;; reload this file
 (defun reload-emacs ()
